@@ -95,7 +95,7 @@ public class SearchTests {
     }
 
     @Test
-    @DisplayName("Search hostel in Paris with one date missing")
+    @DisplayName("Search hotel in Paris with one date missing")
     void searchInParisWithOneMissingDate() throws Exception {
         var expectedJson = """
                 {
