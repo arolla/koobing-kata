@@ -12,4 +12,7 @@ public sealed interface SearchResponse {
 
     record NotFound(@JsonProperty("search_criteria") SearchCriteriaDto criteria) implements SearchResponse {
     }
+
+    record Failure(String message) implements SearchResponse {
+    }
 }

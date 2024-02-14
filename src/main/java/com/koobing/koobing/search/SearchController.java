@@ -27,6 +27,9 @@ public class SearchController {
     public ResponseEntity<SearchResponse> search(@RequestParam(name = "z") String zipcode,
                                                  @RequestParam(name = "d") String[] dates) {
 
+        if (dates.length != 2) {
+            return ResponseEntity.badRequest().body(new SearchResponse.Failure("Two dates must be provided when searching hotels."));
+        }
         var arrivalDate = LocalDate.parse(dates[0]);
         var departureDate = LocalDate.parse(dates[1]);
 
