@@ -1,47 +1,29 @@
-# 100: Validate provided dates while search
+# 100: Book a room
 
 ## Purpose
 
-You'll check service client provides 2 dates in the search end-point.
+Implement the end-point for room booking.
 
-## Case 1
+## Input
 
-### Input
-GET method to /api/v1/search
-Query parameters:
-- 'z' for zipcode
-- 'd' as array strings which are the arrival and departure dates
-
-Example: `/api/v1/search?q=75001&d=2024-01-01`
-
-### Output
-
-HTTP code: 400
+POST method to /api/v1/booking
 
 ```json
 {
-  "message": "Two dates must be provided when searching hotels."
+  "hostel_id": 1,
+  "room_id": "46da9f48-ea47-4d9d-9f4b-52b5e56f4e2e",
+  "arrival": "2020-01-01",
+  "departure": "2020-01-02",
+  "email": "foo.bar@example.com"
 }
 ```
 
-## Case 2
-
-### Input
-
-GET method to /api/v1/search
-Query parameters:
-
-- 'z' for zipcode
-- 'd' as array strings which are the arrival and departure dates
-
-Example: `/api/v1/search?q=75001&d=2024-01-01&d=2024-01-02&d=2024-01-03`
-
 ### Output
 
-HTTP code: 400
+HTTP code: 201
 
 ```json
 {
-  "message": "Two dates must be provided when searching hotels."
+  "booking_number": "A123"
 }
 ```
