@@ -1,6 +1,8 @@
 package com.koobing.koobing.search;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.koobing.koobing.search.dto.HotelDto;
+import com.koobing.koobing.search.dto.SearchCriteriaDto;
 
 import java.util.List;
 

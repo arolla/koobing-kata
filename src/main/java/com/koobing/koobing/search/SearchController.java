@@ -1,5 +1,8 @@
 package com.koobing.koobing.search;
 
+import com.koobing.koobing.search.domain.Hotel;
+import com.koobing.koobing.search.dto.HotelDto;
+import com.koobing.koobing.search.dto.SearchCriteriaDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -7,28 +10,40 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1")
 public class SearchController {
 
+    private final SearchService searchService;
+
+    public SearchController(SearchService searchService) {
+        this.searchService = searchService;
+    }
+
     @GetMapping("/search")
     public ResponseEntity<SearchResponse> search(@RequestParam(name = "z") String zipcode,
                                                  @RequestParam(name = "d") String[] dates) {
-        if (dates[0].equals("2024-01-01")) {
-            return ResponseEntity.ok(new SearchResponse.Found(
-                    List.of(
-                            new HotelDto(1, "Elegance Hotel", "25 RUE DU LOUVRE, 75001, PARIS", 10, 150, List.of("Free Wi-Fi", "Parking", "Complimentary Breakfast")),
-                            new HotelDto(2, "Charming Inn", "21 RUE DU BOULOI, 75001, PARIS", 5, 120, List.of("Free Wi-Fi", "Swimming Pool", "Room Service"))
-                    )
-            ));
+
+        var arrivalDate = LocalDate.parse(dates[0]);
+        var departureDate = LocalDate.parse(dates[1]);
+
+        List<Hotel> availableHostels = searchService.availableHostels(zipcode, arrivalDate, departureDate);
+
+        if (availableHostels.isEmpty()) {
+            return new ResponseEntity<>(
+                    new SearchResponse.NotFound(
+                            new SearchCriteriaDto(zipcode, dates[0], dates[1])
+                    ),
+                    HttpStatus.NOT_FOUND);
         }
 
-        return new ResponseEntity<>(
-                new SearchResponse.NotFound(
-                        new SearchCriteriaDto(zipcode, dates[0], dates[1])
-                ),
-                HttpStatus.NOT_FOUND);
+        return ResponseEntity.ok(new SearchResponse.Found(
+                // transformation from domain to dto
+                availableHostels.stream().map(HotelDto::from).toList()
+        ));
+
     }
 }

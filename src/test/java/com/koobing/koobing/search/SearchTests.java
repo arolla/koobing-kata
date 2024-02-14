@@ -1,11 +1,21 @@
 package com.koobing.koobing.search;
 
+import com.koobing.koobing.search.domain.Address;
+import com.koobing.koobing.search.domain.Hotel;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.time.LocalDate;
+import java.util.Collections;
+import java.util.List;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -14,12 +24,23 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(SearchController.class)
 public class SearchTests {
 
+    @MockBean
+    private SearchService searchService;
+
     @Autowired
     private MockMvc mvc;
 
     @Test
     @DisplayName("Search hotel in Paris")
     void searchInParis() throws Exception {
+        given(searchService.availableHostels(anyString(), any(LocalDate.class), any(LocalDate.class)))
+                .willReturn(
+                        List.of(
+                                new Hotel(1, "Elegance Hotel", new Address("25 RUE DU LOUVRE", "PARIS", "75001"), 10, 150, List.of("Free Wi-Fi", "Parking", "Complimentary Breakfast")),
+                                new Hotel(2, "Charming Inn", new Address("21 RUE DU BOULOI", "PARIS", "75001"), 5, 120, List.of("Free Wi-Fi", "Swimming Pool", "Room Service"))
+                        )
+                );
+
         var expectedJson = """
 {
   "hotels": [
@@ -53,6 +74,9 @@ public class SearchTests {
     @Test
     @DisplayName("Search hotel in Paris. None is available.")
     void noHotelFound() throws Exception {
+        given(searchService.availableHostels(anyString(), any(LocalDate.class), any(LocalDate.class)))
+                .willReturn(Collections.emptyList());
+
         var expectedJson = """
                 {
                   "search_criteria": {
