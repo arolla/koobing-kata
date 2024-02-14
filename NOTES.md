@@ -34,3 +34,6 @@ Example: `/api/v1/search?q=75001&d=2024-01-01&d=2024-01-02`
   ]
 }
 ```
+
+## Tips
+- Use `@WebMvcTest`
