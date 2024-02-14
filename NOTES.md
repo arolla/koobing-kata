@@ -1,7 +1,9 @@
-# 100: Search hotel
+# 100: Search hotel when no one is available
 
 ## Purpose
-You'll write your first end-point to search hotels with available rooms.
+
+You'll write an end-point to search hotels with available rooms.\
+In this user story, no hotel is found.
 
 ## Input
 GET method to /api/v1/search
@@ -12,28 +14,15 @@ Query parameters:
 Example: `/api/v1/search?q=75001&d=2024-01-01&d=2024-01-02`
 
 ## Output
+
+HTTP code: 404
+
 ```json
 {
-  "hotels": [
-    {
-      "id": 1,
-      "name": "Elegance Hotel",
-      "address": "25 RUE DU LOUVRE, 75001, PARIS",
-      "available_rooms": 10,
-      "price": 150,
-      "amenities": ["Free Wi-Fi", "Parking", "Complimentary Breakfast"]
-    },
-    {
-      "id": 2,
-      "name": "Charming Inn",
-      "address": "21 RUE DU BOULOI, 75001, PARIS",
-      "available_rooms": 5,
-      "price": 120,
-      "amenities": ["Free Wi-Fi", "Swimming Pool", "Room Service"]
-    }
-  ]
+  "search_criteria": {
+    "zipcode": "75001",
+    "arrival_date": "2024-01-01",
+    "departure_date": "2024-01-02"
+  }
 }
 ```
-
-## Tips
-- Use `@WebMvcTest`
