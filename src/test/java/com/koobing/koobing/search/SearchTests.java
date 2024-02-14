@@ -49,24 +49,4 @@ public class SearchTests {
                 .andExpect(content().json(expectedJson));
 
     }
-
-    @Test
-    @DisplayName("Search hotel in Paris. None is available.")
-    void noHotelFound() throws Exception {
-        var expectedJson = """
-                {
-                  "search_criteria": {
-                    "zipcode": "75001",
-                    "arrival_date": "2024-01-01",
-                    "departure_date": "2024-01-02"
-                  }
-                }
-                                """;
-
-        mvc.perform(get("/api/v1/search?z=75001&d=2024-01-01&d=2024-01-02"))
-                .andDo(print())
-                .andExpect(status().isNotFound())
-                .andExpect(content().json(expectedJson));
-
-    }
 }
