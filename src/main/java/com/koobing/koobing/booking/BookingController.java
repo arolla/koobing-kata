@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Validated
 public class BookingController {
     @PostMapping("/bookings")
-    public ResponseEntity<BookingResult> bookRoom(@RequestBody @Valid BookingRequest request) {
-        return ResponseEntity.ok(new BookingResult.BookingSuccess("A123"));
+    public ResponseEntity<BookingResultDto> bookRoom(@RequestBody @Valid BookingRequest request) {
+        return ResponseEntity.ok(new BookingResultDto.BookingSuccess("A123"));
     }
 }
