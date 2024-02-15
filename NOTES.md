@@ -1,4 +1,4 @@
-# 100: Search hotel
+# Search hotel
 
 ## Purpose
 You'll write your first end-point to search hotels with available rooms.
