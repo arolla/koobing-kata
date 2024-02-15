@@ -1,4 +1,4 @@
-# 100: Search hotel when no one is available
+# Search hotel when no one is available
 
 ## Purpose
 
