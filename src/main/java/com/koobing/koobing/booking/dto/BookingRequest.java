@@ -1,4 +1,4 @@
-package com.koobing.koobing.booking;
+package com.koobing.koobing.booking.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Email;
