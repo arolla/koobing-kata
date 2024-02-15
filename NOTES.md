@@ -1,4 +1,4 @@
-# 100: Validate provided dates while search
+# Validate provided dates while search
 
 ## Purpose
 
