@@ -36,11 +36,11 @@ public class BookingTests {
                 """;
 
 
-        mvc.perform(post("/api/v1/booking")
+        mvc.perform(post("/api/v1/bookings")
                         .contentType("application/json")
                         .content(bookingJson))
                 .andDo(print())
-                .andExpect(status().isCreated())
+                .andExpect(status().isOk())
                 .andExpect(content().json(expectedJson));
 
     }
