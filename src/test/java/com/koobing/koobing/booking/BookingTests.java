@@ -44,4 +44,32 @@ public class BookingTests {
                 .andExpect(content().json(expectedJson));
 
     }
+
+    @Test
+    @DisplayName("Try booking a room without email")
+    void bookRoomWithoutEmail() throws Exception {
+        var bookingJson = """
+                {
+                    "hostel_id": 1,
+                    "room_id": "46da9f48-ea47-4d9d-9f4b-52b5e56f4e2e",
+                    "arrival": "2020-01-01",
+                    "departure": "2020-01-02"
+                }
+                """;
+
+        var expectedJson = """
+                {
+                    "message": "No email provided."
+                }
+                """;
+
+
+        mvc.perform(post("/api/v1/bookings")
+                        .contentType("application/json")
+                        .content(bookingJson))
+                .andDo(print())
+                .andExpect(status().isBadRequest())
+                .andExpect(content().json(expectedJson));
+
+    }
 }
