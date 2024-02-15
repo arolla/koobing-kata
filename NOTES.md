@@ -1,8 +1,8 @@
-# 100: Book a room
+# Book a room twice
 
 ## Purpose
 
-Try to book a room without a valid mail.
+Try to book a room already booked.
 
 ## Input
 
@@ -14,16 +14,20 @@ POST method to /api/v1/booking
   "room_id": "46da9f48-ea47-4d9d-9f4b-52b5e56f4e2e",
   "arrival": "2020-01-01",
   "departure": "2020-01-02",
-  "email": "foo.bar"
+  "email": "foo.bar@example.com"
 }
 ```
 
 ### Output
 
-HTTP code: 400
+HTTP code: 409
 
 ```json
 {
-  "message": "No email provided."
+  "hostel_id": 1,
+  "room_id": "46da9f48-ea47-4d9d-9f4b-52b5e56f4e2e",
+  "arrival": "2020-01-01",
+  "departure": "2020-01-02",
+  "message": "Room already booked."
 }
 ```
