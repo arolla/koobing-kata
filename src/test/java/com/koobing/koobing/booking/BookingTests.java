@@ -59,7 +59,7 @@ public class BookingTests {
 
         var expectedJson = """
                 {
-                    "message": "No email provided."
+                    "message": "Invalid email provided."
                 }
                 """;
 
