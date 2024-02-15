@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Implement the end-point for room booking.
+Try to book a room without a valid mail.
 
 ## Input
 
@@ -13,17 +13,16 @@ POST method to /api/v1/booking
   "hostel_id": 1,
   "room_id": "46da9f48-ea47-4d9d-9f4b-52b5e56f4e2e",
   "arrival": "2020-01-01",
-  "departure": "2020-01-02",
-  "email": "foo.bar@example.com"
+  "departure": "2020-01-02"
 }
 ```
 
 ### Output
 
-HTTP code: 201
+HTTP code: 400
 
 ```json
 {
-  "booking_number": "A123"
+  "message": "No email provided."
 }
 ```
