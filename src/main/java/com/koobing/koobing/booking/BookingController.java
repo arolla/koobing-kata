@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1")
 public class BookingController {
     @PostMapping("/bookings")
-    public ResponseEntity<BookingResult> bookRoom(@RequestBody BookingRequest request) {
-        return ResponseEntity.ok(new BookingResult.BookingSuccess("A123"));
+    public ResponseEntity<BookingResultDto> bookRoom(@RequestBody BookingRequest request) {
+        return ResponseEntity.ok(new BookingResultDto.BookingSuccess("A123"));
     }
 }
