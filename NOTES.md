@@ -20,7 +20,7 @@ POST method to /api/v1/booking
 
 ### Output
 
-HTTP code: 201
+HTTP code: 200
 
 ```json
 {
