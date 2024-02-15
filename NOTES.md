@@ -1,4 +1,4 @@
-# 100: Book a room
+# Book a room
 
 ## Purpose
 
