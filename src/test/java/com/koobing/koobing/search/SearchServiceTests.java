@@ -8,9 +8,11 @@ import com.koobing.koobing.search.service.DefaultSearchService;
 import com.koobing.koobing.utils.Either;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Timeout;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -63,6 +65,19 @@ class SearchServiceTests {
     @DisplayName("Search hotel when repository is down")
     void searchHotelWhenRepositoryIsDown() {
         HotelRepository hotelRepository = new InMemoryHotelRepository(false);
+        SearchService searchService = new DefaultSearchService(hotelRepository);
+        Either<SearchError, AvailableHotels> hotels = searchService.availableHostels("75001",
+                LocalDate.of(2024, 1, 1),
+                LocalDate.of(2024, 1, 2));
+
+        assertThat(hotels.isRight()).isTrue();
+        assertThat(hotels.right().isEmpty()).isTrue();
+    }
+
+    @Test
+    @Timeout(value = 600, unit = TimeUnit.MILLISECONDS)
+    void searchHotelWhenRepositoryIsSlow() {
+        HotelRepository hotelRepository = new InMemoryHotelRepository(true, true);
         SearchService searchService = new DefaultSearchService(hotelRepository);
         Either<SearchError, AvailableHotels> hotels = searchService.availableHostels("75001",
                 LocalDate.of(2024, 1, 1),
