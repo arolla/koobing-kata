@@ -4,25 +4,36 @@ import com.koobing.koobing.search.HotelRepository;
 import com.koobing.koobing.search.domain.Address;
 import com.koobing.koobing.search.domain.Hotel;
 
+import java.time.Duration;
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 
 public class InMemoryHotelRepository implements HotelRepository {
     private final boolean available;
+    private final boolean slow;
 
-    public InMemoryHotelRepository(boolean isAvailable) {
+    public InMemoryHotelRepository(boolean isAvailable, boolean isSlow) {
         this.available = isAvailable;
+        this.slow = isSlow;
     }
 
     public InMemoryHotelRepository() {
-        this(true);
+        this(true, false);
+    }
+
+    public InMemoryHotelRepository(boolean isAvailable) {
+        this(isAvailable, false);
     }
 
     @Override
     public List<Hotel> findAvailableHotelsByZipcodeAndDates(String zipcode, LocalDate arrivalDate, LocalDate departureDate) {
         if (!available) {
             throw new IllegalStateException("Repository is down");
+        }
+
+        if (slow) {
+            pause(Duration.ofMillis(1000));
         }
 
         if (arrivalDate.equals(LocalDate.of(2024, 1, 1))) {
@@ -33,5 +44,13 @@ public class InMemoryHotelRepository implements HotelRepository {
         }
 
         return Collections.emptyList();
+    }
+
+    private void pause(Duration duration) {
+        try {
+            Thread.sleep(duration.toMillis());
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
