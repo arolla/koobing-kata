@@ -16,7 +16,8 @@ class SearchServiceTests {
     @Test
     @DisplayName("Search hotel")
     void searchHotel() {
-        SearchService searchService = new DefaultSearchService();
+        HotelRepository hotelRepository = new InMemoryHotelRepository();
+        SearchService searchService = new DefaultSearchService(hotelRepository);
         List<Hotel> hotels = searchService.availableHostels("75001",
                 LocalDate.of(2024, 1, 1),
                 LocalDate.of(2024, 1, 2));
