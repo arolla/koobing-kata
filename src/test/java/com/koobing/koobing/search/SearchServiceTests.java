@@ -5,6 +5,7 @@ import com.koobing.koobing.search.domain.AvailableHotels;
 import com.koobing.koobing.search.domain.Hotel;
 import com.koobing.koobing.search.repository.InMemoryHotelRepository;
 import com.koobing.koobing.search.service.DefaultSearchService;
+import com.koobing.koobing.search.service.ResilientSearchService;
 import com.koobing.koobing.utils.Either;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -66,7 +67,8 @@ class SearchServiceTests {
     void searchHotelWhenRepositoryIsDown() {
         HotelRepository hotelRepository = new InMemoryHotelRepository(false);
         SearchService searchService = new DefaultSearchService(hotelRepository);
-        Either<SearchError, AvailableHotels> hotels = searchService.availableHostels("75001",
+        SearchService resilientService = new ResilientSearchService(searchService);
+        Either<SearchError, AvailableHotels> hotels = resilientService.availableHostels("75001",
                 LocalDate.of(2024, 1, 1),
                 LocalDate.of(2024, 1, 2));
 
@@ -79,7 +81,8 @@ class SearchServiceTests {
     void searchHotelWhenRepositoryIsSlow() {
         HotelRepository hotelRepository = new InMemoryHotelRepository(true, true);
         SearchService searchService = new DefaultSearchService(hotelRepository);
-        Either<SearchError, AvailableHotels> hotels = searchService.availableHostels("75001",
+        SearchService resilientService = new ResilientSearchService(searchService);
+        Either<SearchError, AvailableHotels> hotels = resilientService.availableHostels("75001",
                 LocalDate.of(2024, 1, 1),
                 LocalDate.of(2024, 1, 2));
 
