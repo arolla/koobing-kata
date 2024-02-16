@@ -1,6 +1,7 @@
 package com.koobing.koobing.search;
 
 import com.koobing.koobing.search.domain.Address;
+import com.koobing.koobing.search.domain.AvailableHotels;
 import com.koobing.koobing.search.domain.Hotel;
 import com.koobing.koobing.search.repository.InMemoryHotelRepository;
 import com.koobing.koobing.search.service.DefaultSearchService;
@@ -20,11 +21,11 @@ class SearchServiceTests {
     void searchHotel() {
         HotelRepository hotelRepository = new InMemoryHotelRepository();
         SearchService searchService = new DefaultSearchService(hotelRepository);
-        Either<SearchError, List<Hotel>> hotels = searchService.availableHostels("75001",
+        Either<SearchError, AvailableHotels> hotels = searchService.availableHostels("75001",
                 LocalDate.of(2024, 1, 1),
                 LocalDate.of(2024, 1, 2));
 
-        assertThat(hotels.right()).containsExactly(
+        assertThat(hotels.right().hotels()).containsExactly(
                 new Hotel(1, "Elegance Hotel", new Address("25 RUE DU LOUVRE", "PARIS", "75001"), 10, 150, List.of("Free Wi-Fi", "Parking", "Complimentary Breakfast")),
                 new Hotel(2, "Charming Inn", new Address("21 RUE DU BOULOI", "PARIS", "75001"), 5, 120, List.of("Free Wi-Fi", "Swimming Pool", "Room Service"))
         );
@@ -35,11 +36,11 @@ class SearchServiceTests {
     void searchHotelWithInvertedDates() {
         HotelRepository hotelRepository = new InMemoryHotelRepository();
         SearchService searchService = new DefaultSearchService(hotelRepository);
-        Either<SearchError, List<Hotel>> hotels = searchService.availableHostels("75001",
+        Either<SearchError, AvailableHotels> hotels = searchService.availableHostels("75001",
                 LocalDate.of(2024, 1, 2),
                 LocalDate.of(2024, 1, 1));
 
-        assertThat(hotels.right()).containsExactly(
+        assertThat(hotels.right().hotels()).containsExactly(
                 new Hotel(1, "Elegance Hotel", new Address("25 RUE DU LOUVRE", "PARIS", "75001"), 10, 150, List.of("Free Wi-Fi", "Parking", "Complimentary Breakfast")),
                 new Hotel(2, "Charming Inn", new Address("21 RUE DU BOULOI", "PARIS", "75001"), 5, 120, List.of("Free Wi-Fi", "Swimming Pool", "Room Service"))
         );
@@ -50,7 +51,7 @@ class SearchServiceTests {
     void searchHotelWithoutOneNightAtLeast() {
         HotelRepository hotelRepository = new InMemoryHotelRepository();
         SearchService searchService = new DefaultSearchService(hotelRepository);
-        Either<SearchError, List<Hotel>> hotels = searchService.availableHostels("75001",
+        Either<SearchError, AvailableHotels> hotels = searchService.availableHostels("75001",
                 LocalDate.of(2024, 1, 1),
                 LocalDate.of(2024, 1, 1));
 
