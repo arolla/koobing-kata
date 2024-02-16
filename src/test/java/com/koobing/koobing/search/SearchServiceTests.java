@@ -58,4 +58,17 @@ class SearchServiceTests {
         assertThat(hotels.isLeft()).isTrue();
         assertThat(hotels.left()).isEqualTo(SearchError.AT_LEAST_ONE_NIGHT);
     }
+
+    @Test
+    @DisplayName("Search hotel when repository is down")
+    void searchHotelWhenRepositoryIsDown() {
+        HotelRepository hotelRepository = new InMemoryHotelRepository(false);
+        SearchService searchService = new DefaultSearchService(hotelRepository);
+        Either<SearchError, AvailableHotels> hotels = searchService.availableHostels("75001",
+                LocalDate.of(2024, 1, 1),
+                LocalDate.of(2024, 1, 1));
+
+        assertThat(hotels.isRight()).isTrue();
+        assertThat(hotels.right().isEmpty()).isTrue();
+    }
 }

@@ -9,6 +9,16 @@ import java.util.Collections;
 import java.util.List;
 
 public class InMemoryHotelRepository implements HotelRepository {
+    private final boolean available;
+
+    public InMemoryHotelRepository(boolean isAvailable) {
+        this.available = isAvailable;
+    }
+
+    public InMemoryHotelRepository() {
+        this(true);
+    }
+
     @Override
     public List<Hotel> findAvailableHotelsByZipcodeAndDates(String zipcode, LocalDate arrivalDate, LocalDate departureDate) {
         if (arrivalDate.equals(LocalDate.of(2024, 1, 1))) {
