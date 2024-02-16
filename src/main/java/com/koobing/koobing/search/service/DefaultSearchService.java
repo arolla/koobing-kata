@@ -18,7 +18,7 @@ public class DefaultSearchService implements SearchService {
     @Override
     public Either<SearchError, AvailableHotels> availableHostels(String zipcode, LocalDate arrivalDate, LocalDate departureDate) {
         if (arrivalDate.equals(departureDate)) {
-            return Either.left(new SearchError("A booking must contain at least one night."));
+            return Either.left(SearchError.AT_LEAST_ONE_NIGHT);
         }
 
         if (departureDate.isBefore(arrivalDate)) {

@@ -125,9 +125,7 @@ public class SearchTests {
     @DisplayName("Search hotel in Paris for a booking without a night.")
     void searchWithoutOneNightAtLeast() throws Exception {
         given(searchService.availableHostels(anyString(), any(LocalDate.class), any(LocalDate.class)))
-                .willReturn(Either.left(
-                        new SearchError("A booking must contain at least one night."))
-                );
+                .willReturn(Either.left(SearchError.AT_LEAST_ONE_NIGHT));
 
         var expectedJson = """
                 {

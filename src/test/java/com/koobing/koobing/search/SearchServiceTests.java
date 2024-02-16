@@ -56,6 +56,6 @@ class SearchServiceTests {
                 LocalDate.of(2024, 1, 1));
 
         assertThat(hotels.isLeft()).isTrue();
-        assertThat(hotels.left()).isEqualTo(new SearchError("A booking must contain at least one night."));
+        assertThat(hotels.left()).isEqualTo(SearchError.AT_LEAST_ONE_NIGHT);
     }
 }
