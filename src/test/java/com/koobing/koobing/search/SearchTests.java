@@ -120,4 +120,21 @@ public class SearchTests {
                 .andExpect(status().isBadRequest())
                 .andExpect(content().json(expectedJson));
     }
+
+    @Test
+    @DisplayName("Search hotel in Paris for a booking without a night.")
+    void searchWithoutOneNightAtLeast() throws Exception {
+
+        var expectedJson = """
+                {
+                    "message": "A booking must contain at least one night."
+                }
+                """;
+
+
+        mvc.perform(get("/api/v1/search?z=75001&d=2024-01-01&d=2024-01-01"))
+                .andDo(print())
+                .andExpect(status().isBadRequest())
+                .andExpect(content().json(expectedJson));
+    }
 }
