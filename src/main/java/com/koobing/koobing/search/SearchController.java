@@ -35,6 +35,10 @@ public class SearchController {
 
         Either<SearchError, AvailableHotels> availableHostels = searchService.availableHostels(zipcode, arrivalDate, departureDate);
 
+        if (availableHostels.isLeft()) {
+            return ResponseEntity.badRequest().body(new SearchResponse.Failure(availableHostels.left().cause()));
+        }
+
         if (availableHostels.right().isEmpty()) {
             return new ResponseEntity<>(
                     new SearchResponse.NotFound(
