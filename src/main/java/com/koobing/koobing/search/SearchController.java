@@ -3,6 +3,7 @@ package com.koobing.koobing.search;
 import com.koobing.koobing.search.domain.Hotel;
 import com.koobing.koobing.search.dto.HotelDto;
 import com.koobing.koobing.search.dto.SearchCriteriaDto;
+import com.koobing.koobing.utils.Either;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,9 +34,9 @@ public class SearchController {
         var arrivalDate = LocalDate.parse(dates[0]);
         var departureDate = LocalDate.parse(dates[1]);
 
-        List<Hotel> availableHostels = searchService.availableHostels(zipcode, arrivalDate, departureDate);
+        Either<SearchError, List<Hotel>> availableHostels = searchService.availableHostels(zipcode, arrivalDate, departureDate);
 
-        if (availableHostels.isEmpty()) {
+        if (availableHostels.right().isEmpty()) {
             return new ResponseEntity<>(
                     new SearchResponse.NotFound(
                             new SearchCriteriaDto(zipcode, dates[0], dates[1])
@@ -45,7 +46,7 @@ public class SearchController {
 
         return ResponseEntity.ok(new SearchResponse.Found(
                 // transformation from domain to dto
-                availableHostels.stream().map(HotelDto::from).toList()
+                availableHostels.right().stream().map(HotelDto::from).toList()
         ));
 
     }

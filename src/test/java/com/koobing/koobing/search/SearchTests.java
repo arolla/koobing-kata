@@ -2,6 +2,7 @@ package com.koobing.koobing.search;
 
 import com.koobing.koobing.search.domain.Address;
 import com.koobing.koobing.search.domain.Hotel;
+import com.koobing.koobing.utils.Either;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -37,10 +38,10 @@ public class SearchTests {
     void searchInParis() throws Exception {
         given(searchService.availableHostels(anyString(), any(LocalDate.class), any(LocalDate.class)))
                 .willReturn(
-                        List.of(
+                        Either.right(List.of(
                                 new Hotel(1, "Elegance Hotel", new Address("25 RUE DU LOUVRE", "PARIS", "75001"), 10, 150, List.of("Free Wi-Fi", "Parking", "Complimentary Breakfast")),
                                 new Hotel(2, "Charming Inn", new Address("21 RUE DU BOULOI", "PARIS", "75001"), 5, 120, List.of("Free Wi-Fi", "Swimming Pool", "Room Service"))
-                        )
+                        ))
                 );
 
         var expectedJson = """
@@ -77,7 +78,7 @@ public class SearchTests {
     @DisplayName("Search hotel in Paris. None is available.")
     void noHotelFound() throws Exception {
         given(searchService.availableHostels(anyString(), any(LocalDate.class), any(LocalDate.class)))
-                .willReturn(Collections.emptyList());
+                .willReturn(Either.right(Collections.emptyList()));
 
         var expectedJson = """
                 {
