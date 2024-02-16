@@ -1,19 +1,12 @@
-# Implement search service
+# Implement persistence
 
 ## Purpose
 
-When hotel repository is too slow, we don't want to overload it with too long requests.
+Implement repository that reads data from data store.
 
-## What
+> Use SQL files provided in resources.
 
-Simulate when the repository is used for hotel search is too slow.
-A repository is too slow when it takes more than 500ms to respond.
+## Steps
 
-Manage this case in the domain service layer.
-
-> TIP: Use the repository stub.
-
-## Expected
-
-An empty list of available hotels and log the issue.
-
+1. Use JPA
+2. Use JDBC template
