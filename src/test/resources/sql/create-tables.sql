@@ -1,6 +1,6 @@
-create table hostels
+create table hotels
 (
-    hostel_id int primary key,
+    hotel_id int primary key,
     name      varchar(255),
     street    varchar(255),
     zipcode   varchar(15),
@@ -13,16 +13,16 @@ create table bedrooms
     room_id     uuid primary key,
     room_number int not null,
     price       int not null,
-    hostel_id   int references hostels (hostel_id)
+    hotel_id int references hotels (hotel_id)
 );
-create index fk_bedrooms_hostels on bedrooms (hostel_id);
+create index fk_bedrooms_hotels on bedrooms (hotel_id);
 
 create table amenities
 (
-    hostel_id int references hostels (hostel_id),
+    hotel_id int references hotels (hotel_id),
     amenity   varchar(255)
 );
-create index fk_amenities_hostels on amenities (hostel_id);
+create index fk_amenities_hotels on amenities (hotel_id);
 
 create table bookings
 (
