@@ -66,7 +66,7 @@ class SearchServiceTests {
         SearchService searchService = new DefaultSearchService(hotelRepository);
         Either<SearchError, AvailableHotels> hotels = searchService.availableHostels("75001",
                 LocalDate.of(2024, 1, 1),
-                LocalDate.of(2024, 1, 1));
+                LocalDate.of(2024, 1, 2));
 
         assertThat(hotels.isRight()).isTrue();
         assertThat(hotels.right().isEmpty()).isTrue();
