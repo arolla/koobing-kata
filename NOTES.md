@@ -2,21 +2,17 @@
 
 ## Purpose
 
-Refuse when a booking doesn't contain at least one night.
+Manage hotel repository outage.
 
-## Todo
+## What
 
-+ First implement in service
-+ After implement this behavior in controller
+Simulate when the repository is used for hotel search is unavailable.
 
-For the controller, we expect:
+Manage this case in the domain service layer.
 
-400 Bad Request as HTTP status code
+> TIP: Use the repository stub.
 
-This response:
+## Expected
 
-```json
-{
-  "message": "A booking must contain at least one night."
-}
-```
+An empty list of available hotels and log the issue.
+
