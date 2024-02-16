@@ -2,6 +2,7 @@ package com.koobing.koobing.search;
 
 import com.koobing.koobing.search.domain.Address;
 import com.koobing.koobing.search.domain.Hotel;
+import com.koobing.koobing.search.repository.InMemoryHotelRepository;
 import com.koobing.koobing.search.service.DefaultSearchService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
