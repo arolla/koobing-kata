@@ -2,7 +2,21 @@
 
 ## Purpose
 
-Manage the principle: "Be open with input but close with output".
-You accept in the search service, the caller inverts the arrival and departure dates.
+Refuse when a booking doesn't contain at least one night.
 
+## Todo
 
++ First implement in service
++ After implement this behavior in controller
+
+For the controller, we expect:
+
+400 Bad Request as HTTP status code
+
+This response:
+
+```json
+{
+  "message": "A booking must contain at least one night."
+}
+```
