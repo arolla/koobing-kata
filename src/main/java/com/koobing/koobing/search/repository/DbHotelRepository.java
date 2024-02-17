@@ -4,7 +4,7 @@ import com.koobing.koobing.search.HotelRepository;
 import com.koobing.koobing.search.domain.Address;
 import com.koobing.koobing.search.domain.Hotel;
 import com.koobing.koobing.search.domain.Zipcode;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import javax.sql.DataSource;
 import java.sql.ResultSet;
@@ -12,17 +12,18 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 public class DbHotelRepository implements HotelRepository {
     private final static String QUERY = """
             with city_hotels as (select h.*, r.ROOM_ID
                                   from HOTELS h
                                            join BEDROOMS r on h.HOTEL_ID = r.HOTEL_ID
-                                  where ZIPCODE = '{ZIPCODE}'),
+                                  where ZIPCODE = :zipcode),
                  booked_rooms as (select b.ROOM_ID
                                   from BOOKINGS b
-                                  where ('{START_DATE}' between b.START_DATE and b.END_DATE)
-                                     or '{END_DATE}' between b.START_DATE and b.END_DATE),
+                                  where (:arrivalDate between b.START_DATE and b.END_DATE)
+                                     or :departureDate between b.START_DATE and b.END_DATE),
                  available_rooms as (select h.HOTEL_ID, r.ROOM_ID, r.PRICE
                                      from BEDROOMS r
                                               join city_hotels h on r.ROOM_ID = h.ROOM_ID
@@ -43,11 +44,12 @@ public class DbHotelRepository implements HotelRepository {
 
     @Override
     public List<Hotel> findAvailableHotelsByZipcodeAndDates(Zipcode zipcode, LocalDate arrivalDate, LocalDate departureDate) {
-        var jdbc = new JdbcTemplate(dataSource);
-        var q = QUERY.replace("{ZIPCODE}", zipcode.value())
-                .replace("{START_DATE}", arrivalDate.toString())
-                .replace("{END_DATE}", departureDate.toString());
-        return jdbc.query(q,
+        var jdbc = new NamedParameterJdbcTemplate(dataSource);
+        var parameters = Map.of("zipcode", zipcode.value(),
+                "arrivalDate", arrivalDate,
+                "departureDate", departureDate);
+        return jdbc.query(QUERY,
+                parameters,
                 (rs, rowNum) -> hotelFromResultSet(rs));
     }
 
