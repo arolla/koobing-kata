@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 
-public class JpaHotelRepository implements HotelRepository {
+public class DbHotelRepository implements HotelRepository {
 
     @Override
     public List<Hotel> findAvailableHotelsByZipcodeAndDates(String zipcode, LocalDate arrivalDate, LocalDate departureDate) {

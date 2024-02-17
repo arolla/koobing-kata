@@ -2,7 +2,7 @@ package com.koobing.koobing.repository;
 
 import com.koobing.koobing.search.SearchConfiguration;
 import com.koobing.koobing.search.domain.Hotel;
-import com.koobing.koobing.search.repository.JpaHotelRepository;
+import com.koobing.koobing.search.repository.DbHotelRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +19,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @Import({SearchConfiguration.class,})
 @Sql(scripts = {"/sql/create-tables.sql", "/sql/insert.sql"})
 @Sql(scripts = {"/sql/drop-tables.sql"}, executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
-class JpaHotelRepositoryTest {
+class DbHotelRepositoryTest {
 
     @Autowired
-    private JpaHotelRepository repository;
+    private DbHotelRepository repository;
 
     @Test
     @DisplayName("search available hotels from DB")
