@@ -12,7 +12,7 @@ class JpaHotelRepositoryTest {
 
 
     @Test
-    @DisplayName("search available hostels from DB")
+    @DisplayName("search available hotels from DB")
     void availableHostels() {
     }
 }
