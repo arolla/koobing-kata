@@ -114,4 +114,20 @@ public class SearchTests {
                 .andExpect(status().isBadRequest())
                 .andExpect(content().json(expectedJson));
     }
+
+    @Test
+    @DisplayName("Try to search hostel in Paris without API key")
+    void noApiKeyProvided() throws Exception {
+        given(searchService.availableHostels(anyString(), any(LocalDate.class), any(LocalDate.class)))
+                .willReturn(
+                        List.of(
+                                new Hotel(1, "Elegance Hotel", new Address("25 RUE DU LOUVRE", "PARIS", "75001"), 10, 150, List.of("Free Wi-Fi", "Parking", "Complimentary Breakfast")),
+                                new Hotel(2, "Charming Inn", new Address("21 RUE DU BOULOI", "PARIS", "75001"), 5, 120, List.of("Free Wi-Fi", "Swimming Pool", "Room Service"))
+                        )
+                );
+
+        mvc.perform(get("/search?z=75001&d=2024-01-01&d=2024-01-02"))
+                .andDo(print())
+                .andExpect(status().isUnauthorized());
+    }
 }
