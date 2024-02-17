@@ -4,6 +4,12 @@ import com.koobing.koobing.search.domain.AvailableHotels;
 import com.koobing.koobing.search.dto.HotelDto;
 import com.koobing.koobing.search.dto.SearchCriteriaDto;
 import com.koobing.koobing.utils.Either;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -27,9 +33,20 @@ public class SearchController {
         this.searchService = searchService;
     }
 
+    @Operation(summary = "Search for hotels")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Hotel List",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = SearchResponse.Found.class))}),
+            @ApiResponse(responseCode = "400",
+                    description = "Something went wrong",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = SearchResponse.Failure.class))})
+    })
     @GetMapping("/search")
-    public ResponseEntity<SearchResponse> search(@RequestParam(name = "z") String zipcode,
-                                                 @RequestParam(name = "d") String[] dates) {
+    public ResponseEntity<SearchResponse> search(@RequestParam(name = "z") @Parameter(name = "z", description = "zipcode") String zipcode,
+                                                 @RequestParam(name = "d") @Parameter(name = "d", description = "dates (arrival and departure). Format: YYYY-MM-DD") String[] dates) {
 
         if (dates.length != 2) {
             log.debug("Expected 2 dates when hostels search (arrival and departure). Got {} dates.", dates.length);
