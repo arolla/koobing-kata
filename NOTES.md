@@ -2,5 +2,7 @@
 
 ## Purpose
 
-Fix the security issue by using a string as zipcode.
+Write an integration test of the search service.
+
+This test use the H2 database and start a real http server.
 
