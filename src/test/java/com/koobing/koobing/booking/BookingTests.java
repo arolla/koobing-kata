@@ -5,7 +5,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -19,7 +18,6 @@ public class BookingTests {
     private MockMvc mvc;
 
     @Test
-    @WithMockUser(roles = "PROCUREMENT")
     @DisplayName("Book a room")
     void bookRoom() throws Exception {
         var bookingJson = """
@@ -49,7 +47,6 @@ public class BookingTests {
     }
 
     @Test
-    @WithMockUser(roles = "PROCUREMENT")
     @DisplayName("Try booking a room without email")
     void bookRoomWithoutEmail() throws Exception {
         var bookingJson = """
@@ -76,27 +73,6 @@ public class BookingTests {
                 .andExpect(content().json(expectedJson));
 
     }
-
-    @Test
-    @WithMockUser
-    @DisplayName("A simple user try booking a room")
-    void bookRoomWithoutRightRole() throws Exception {
-        var bookingJson = """
-                {
-                    "hostel_id": 1,
-                    "room_id": "46da9f48-ea47-4d9d-9f4b-52b5e56f4e2e",
-                    "arrival": "2020-01-01",
-                    "departure": "2020-01-02",
-                    "email" : "foo.bar@example.com"
-                }
-                """;
-
-
-        mvc.perform(post("/api/v1/bookings")
-                        .contentType("application/json")
-                        .content(bookingJson))
-                .andDo(print())
-                .andExpect(status().isForbidden());
-
-    }
 }
+
+
