@@ -4,6 +4,8 @@ import com.koobing.koobing.search.HotelRepository;
 import com.koobing.koobing.search.domain.Address;
 import com.koobing.koobing.search.domain.Hotel;
 import com.koobing.koobing.search.domain.Zipcode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;
@@ -14,6 +16,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class DbHotelRepository implements HotelRepository {
+    private final Logger log = LoggerFactory.getLogger(DbHotelRepository.class);
+
     private final static String QUERY = """
             with city_hotels as (select h.*, r.ROOM_ID
                                   from HOTELS h
@@ -43,6 +47,8 @@ public class DbHotelRepository implements HotelRepository {
 
     @Override
     public List<Hotel> findAvailableHotelsByZipcodeAndDates(Zipcode zipcode, LocalDate arrivalDate, LocalDate departureDate) {
+        log.debug("findAvailableHotelsByZipcodeAndDates({}, {}, {})", zipcode, arrivalDate, departureDate);
+
         var jdbc = new JdbcTemplate(dataSource);
         var q = QUERY.replace("{ZIPCODE}", zipcode.value())
                 .replace("{START_DATE}", arrivalDate.toString())
