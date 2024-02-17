@@ -15,7 +15,6 @@ public class BookingEntity {
     @Column(name = "booking_id")
     private UUID id;
     private String guestEmail;
-    //    private int roomNumber;
     private LocalDate startDate;
     private LocalDate endDate;
 
