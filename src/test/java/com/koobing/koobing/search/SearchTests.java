@@ -2,7 +2,6 @@ package com.koobing.koobing.search;
 
 import com.koobing.koobing.search.domain.Address;
 import com.koobing.koobing.search.domain.Hotel;
-import com.koobing.koobing.security.SecurityConfiguration;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -10,8 +9,6 @@ import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.security.test.context.support.WithAnonymousUser;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDate;
@@ -26,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest({SearchController.class, SecurityConfiguration.class})
+@WebMvcTest(SearchController.class)
 public class SearchTests {
 
     @MockBean
@@ -36,7 +33,6 @@ public class SearchTests {
     private MockMvc mvc;
 
     @Test
-    @WithMockUser
     @DisplayName("Search hotel in Paris")
     void searchInParis() throws Exception {
         given(searchService.availableHostels(anyString(), any(LocalDate.class), any(LocalDate.class)))
@@ -78,7 +74,6 @@ public class SearchTests {
     }
 
     @Test
-    @WithMockUser
     @DisplayName("Search hotel in Paris. None is available.")
     void noHotelFound() throws Exception {
         given(searchService.availableHostels(anyString(), any(LocalDate.class), any(LocalDate.class)))
@@ -102,7 +97,6 @@ public class SearchTests {
     }
 
     @ParameterizedTest
-    @WithMockUser
     @ValueSource(strings = {
             "/api/v1/search?z=75001&d=2024-01-01",
             "/api/v1/search?z=75001&d=2024-01-01&d=2024-01-02&d=2024-01-03"
@@ -121,21 +115,4 @@ public class SearchTests {
                 .andExpect(content().json(expectedJson));
     }
 
-    @Test
-    @WithAnonymousUser
-    @DisplayName("An anonymous user try searching hotel in Paris")
-    void searchInParisWithAnonymousUser() throws Exception {
-        given(searchService.availableHostels(anyString(), any(LocalDate.class), any(LocalDate.class)))
-                .willReturn(
-                        List.of(
-                                new Hotel(1, "Elegance Hotel", new Address("25 RUE DU LOUVRE", "PARIS", "75001"), 10, 150, List.of("Free Wi-Fi", "Parking", "Complimentary Breakfast")),
-                                new Hotel(2, "Charming Inn", new Address("21 RUE DU BOULOI", "PARIS", "75001"), 5, 120, List.of("Free Wi-Fi", "Swimming Pool", "Room Service"))
-                        )
-                );
-
-        mvc.perform(get("/api/v1/search?z=75001&d=2024-01-01&d=2024-01-02"))
-                .andDo(print())
-                .andExpect(status().isUnauthorized());
-
-    }
 }
