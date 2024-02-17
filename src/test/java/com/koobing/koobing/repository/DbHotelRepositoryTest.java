@@ -8,7 +8,7 @@ import org.springframework.test.context.jdbc.Sql;
 @DataJpaTest
 @Sql(scripts = {"/sql/create-tables.sql", "/sql/insert.sql"})
 @Sql(scripts = {"/sql/drop-tables.sql"}, executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
-class JpaHotelRepositoryTest {
+class DbHotelRepositoryTest {
 
 
     @Test
