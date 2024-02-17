@@ -24,4 +24,8 @@ public class RoomEntity {
         return bookings.stream()
                 .allMatch(bookingEntity -> departureDate.isAfter(bookingEntity.getEndDate()) && arrivalDate.isBefore(bookingEntity.getStartDate()));
     }
+
+    public Integer getPrice() {
+        return price;
+    }
 }

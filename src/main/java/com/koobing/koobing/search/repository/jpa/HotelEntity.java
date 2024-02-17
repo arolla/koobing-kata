@@ -11,10 +11,10 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(name = "hostels")
+@Table(name = "hotels")
 public class HotelEntity {
     @Id
-    @Column(name = "hostel_id")
+    @Column(name = "hotel_id")
     private Integer id;
 
     private String name;
@@ -23,16 +23,16 @@ public class HotelEntity {
     private String city;
     private Float rating;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "hostel_id")
+    @OneToMany
+    @JoinColumn(name = "hotel_id")
     private Collection<RoomEntity> rooms = new ArrayList<>();
 
     @ElementCollection
-    @CollectionTable(name = "amenities", joinColumns = @JoinColumn(name = "hostel_id"))
+    @CollectionTable(name = "amenities", joinColumns = @JoinColumn(name = "hotel_id"))
     @Column(name = "amenity")
     private Set<String> amenities;
 
-    public static Hotel toHostel(HotelEntity e, int roomCount, Integer lowestPrice) {
+    public static Hotel toHotel(HotelEntity e, int roomCount, Integer lowestPrice) {
         return new Hotel(
                 e.id,
                 e.name,
