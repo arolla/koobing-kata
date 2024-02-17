@@ -2,5 +2,5 @@
 
 ## Purpose
 
-Fix the security issue by using a string as zipcode.
+Use a PostgreSQL database.
 
