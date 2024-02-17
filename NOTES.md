@@ -2,7 +2,11 @@
 
 ## Purpose
 
-Write an integration test of the search service.
+Add correlation in all log messages. Each HTTP request must have a unique correlation identifier.
 
-This test use the H2 database and start a real http server.
+## Todo
+
+1. Add log in debug all along then search chain: controller, service, repository
+2. All log from the same request must have the same correlation identifier
+3. Each request must have a unique correlation identifier
 
