@@ -2,11 +2,5 @@
 
 ## Purpose
 
-Implement repository that reads data from data store.
+Fix the security issue by using a string as zipcode.
 
-> Use SQL files provided in resources.
-
-## Steps
-
-1. Use JPA
-2. Use JDBC template
