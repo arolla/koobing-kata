@@ -9,7 +9,7 @@ import javax.sql.DataSource;
 @Configuration
 public class SearchConfiguration {
     @Bean
-    public DbHotelRepository searchService(DataSource dataSource) {
+    public DbHotelRepository hotelRepository(DataSource dataSource) {
         return new DbHotelRepository(dataSource);
     }
 }
