@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static com.koobing.koobing.security.ApiKeyFilter.API_SECRET_HEADER;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -38,7 +39,8 @@ public class BookingTests {
 
         mvc.perform(post("/api/v1/bookings")
                         .contentType("application/json")
-                        .content(bookingJson))
+                        .content(bookingJson)
+                        .header(API_SECRET_HEADER, "A_STRING_API_KEY_HERE"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().json(expectedJson));
@@ -66,7 +68,9 @@ public class BookingTests {
 
         mvc.perform(post("/api/v1/bookings")
                         .contentType("application/json")
-                        .content(bookingJson))
+                        .content(bookingJson)
+                        .header(API_SECRET_HEADER, "A_STRING_API_KEY_HERE"))
+
                 .andDo(print())
                 .andExpect(status().isBadRequest())
                 .andExpect(content().json(expectedJson));

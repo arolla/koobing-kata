@@ -15,6 +15,7 @@ import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 
+import static com.koobing.koobing.security.ApiKeyFilter.API_SECRET_HEADER;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
@@ -66,7 +67,7 @@ public class SearchTests {
                 }
                                 """;
 
-        mvc.perform(get("/api/v1/search?z=75001&d=2024-01-01&d=2024-01-02"))
+        mvc.perform(get("/api/v1/search?z=75001&d=2024-01-01&d=2024-01-02").header(API_SECRET_HEADER, "A_STRING_API_KEY_HERE"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().json(expectedJson));
@@ -89,7 +90,7 @@ public class SearchTests {
                 }
                                 """;
 
-        mvc.perform(get("/api/v1/search?z=75001&d=2024-01-03&d=2024-01-04"))
+        mvc.perform(get("/api/v1/search?z=75001&d=2024-01-03&d=2024-01-04").header(API_SECRET_HEADER, "A_STRING_API_KEY_HERE"))
                 .andDo(print())
                 .andExpect(status().isNotFound())
                 .andExpect(content().json(expectedJson));
@@ -109,7 +110,7 @@ public class SearchTests {
                 }
                 """;
 
-        mvc.perform(get(uri))
+        mvc.perform(get(uri).header(API_SECRET_HEADER, "A_STRING_API_KEY_HERE"))
                 .andDo(print())
                 .andExpect(status().isBadRequest())
                 .andExpect(content().json(expectedJson));
