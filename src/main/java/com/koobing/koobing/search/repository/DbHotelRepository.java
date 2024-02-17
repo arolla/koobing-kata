@@ -3,6 +3,7 @@ package com.koobing.koobing.search.repository;
 import com.koobing.koobing.search.HotelRepository;
 import com.koobing.koobing.search.domain.Address;
 import com.koobing.koobing.search.domain.Hotel;
+import com.koobing.koobing.search.domain.Zipcode;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;
@@ -41,9 +42,9 @@ public class DbHotelRepository implements HotelRepository {
     }
 
     @Override
-    public List<Hotel> findAvailableHotelsByZipcodeAndDates(String zipcode, LocalDate arrivalDate, LocalDate departureDate) {
+    public List<Hotel> findAvailableHotelsByZipcodeAndDates(Zipcode zipcode, LocalDate arrivalDate, LocalDate departureDate) {
         var jdbc = new JdbcTemplate(dataSource);
-        var q = QUERY.replace("{ZIPCODE}", zipcode)
+        var q = QUERY.replace("{ZIPCODE}", zipcode.value())
                 .replace("{START_DATE}", arrivalDate.toString())
                 .replace("{END_DATE}", departureDate.toString());
         return jdbc.query(q,

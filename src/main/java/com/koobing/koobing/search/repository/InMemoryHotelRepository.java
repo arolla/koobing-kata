@@ -3,6 +3,7 @@ package com.koobing.koobing.search.repository;
 import com.koobing.koobing.search.HotelRepository;
 import com.koobing.koobing.search.domain.Address;
 import com.koobing.koobing.search.domain.Hotel;
+import com.koobing.koobing.search.domain.Zipcode;
 
 import java.time.Duration;
 import java.time.LocalDate;
@@ -27,7 +28,7 @@ public class InMemoryHotelRepository implements HotelRepository {
     }
 
     @Override
-    public List<Hotel> findAvailableHotelsByZipcodeAndDates(String zipcode, LocalDate arrivalDate, LocalDate departureDate) {
+    public List<Hotel> findAvailableHotelsByZipcodeAndDates(Zipcode zipcode, LocalDate arrivalDate, LocalDate departureDate) {
         if (!available) {
             throw new IllegalStateException("Repository is down");
         }

@@ -3,6 +3,7 @@ package com.koobing.koobing.search.service;
 import com.koobing.koobing.search.SearchError;
 import com.koobing.koobing.search.SearchService;
 import com.koobing.koobing.search.domain.AvailableHotels;
+import com.koobing.koobing.search.domain.Zipcode;
 import com.koobing.koobing.utils.Either;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +23,7 @@ public class ResilientSearchService implements SearchService {
     }
 
     @Override
-    public Either<SearchError, AvailableHotels> availableHostels(String zipcode, LocalDate arrivalDate, LocalDate departureDate) {
+    public Either<SearchError, AvailableHotels> availableHostels(Zipcode zipcode, LocalDate arrivalDate, LocalDate departureDate) {
         try {
             CompletableFuture<Either<SearchError, AvailableHotels>> result = CompletableFuture.supplyAsync(() -> delegate.availableHostels(zipcode, arrivalDate, departureDate));
             return result.get(500, TimeUnit.MILLISECONDS);

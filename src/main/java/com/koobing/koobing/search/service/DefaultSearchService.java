@@ -4,14 +4,12 @@ import com.koobing.koobing.search.HotelRepository;
 import com.koobing.koobing.search.SearchError;
 import com.koobing.koobing.search.SearchService;
 import com.koobing.koobing.search.domain.AvailableHotels;
+import com.koobing.koobing.search.domain.Zipcode;
 import com.koobing.koobing.utils.Either;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
 
 public class DefaultSearchService implements SearchService {
-    private static final Logger log = LoggerFactory.getLogger(DefaultSearchService.class);
     private final HotelRepository hotelRepository;
 
     public DefaultSearchService(HotelRepository hotelRepository) {
@@ -19,7 +17,7 @@ public class DefaultSearchService implements SearchService {
     }
 
     @Override
-    public Either<SearchError, AvailableHotels> availableHostels(String zipcode, LocalDate arrivalDate, LocalDate departureDate) {
+    public Either<SearchError, AvailableHotels> availableHostels(Zipcode zipcode, LocalDate arrivalDate, LocalDate departureDate) {
         if (arrivalDate.equals(departureDate)) {
             return Either.left(SearchError.AT_LEAST_ONE_NIGHT);
         }
