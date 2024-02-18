@@ -129,5 +129,4 @@ public class BookingTests {
                 .andExpect(content().json(expectedJson));
 
     }
-
 }
