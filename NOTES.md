@@ -9,7 +9,7 @@ Query parameters:
 - 'z' for zipcode
 - 'd' as array strings which are the arrival and departure dates
 
-Example: `/api/v1/search?q=75001&d=2024-01-01&d=2024-01-02`
+Example: `/api/v1/search?z=75001&d=2024-01-01&d=2024-01-02`
 
 ## Output
 ```json
