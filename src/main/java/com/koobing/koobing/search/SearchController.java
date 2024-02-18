@@ -12,6 +12,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.aot.hint.annotation.RegisterReflectionForBinding;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -45,6 +46,7 @@ public class SearchController {
                             schema = @Schema(implementation = SearchResponse.Failure.class))})
     })
     @GetMapping("/search")
+    @RegisterReflectionForBinding({SearchResponse.Found.class, SearchResponse.Failure.class, SearchResponse.NotFound.class})
     public ResponseEntity<SearchResponse> search(@RequestParam(name = "z") @Parameter(name = "z", description = "zipcode") String zipcode,
                                                  @RequestParam(name = "d") @Parameter(name = "d", description = "dates (arrival and departure). Format: YYYY-MM-DD") String[] dates) {
 
