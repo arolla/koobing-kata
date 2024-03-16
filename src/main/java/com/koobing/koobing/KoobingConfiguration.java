@@ -4,8 +4,8 @@ import com.koobing.koobing.booking.BookingResult;
 import com.koobing.koobing.booking.BookingService;
 import com.koobing.koobing.search.HotelRepository;
 import com.koobing.koobing.search.SearchService;
+import com.koobing.koobing.search.repository.ResilientHotelRepository;
 import com.koobing.koobing.search.service.DefaultSearchService;
-import com.koobing.koobing.search.service.ResilientSearchService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -16,7 +16,7 @@ public class KoobingConfiguration {
 
     @Bean
     public SearchService searchService(HotelRepository hotelRepository) {
-        return new ResilientSearchService(new DefaultSearchService(hotelRepository));
+        return new DefaultSearchService(new ResilientHotelRepository(hotelRepository));
     }
 
     @Bean
