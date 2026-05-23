@@ -1,0 +1,192 @@
+{
+  "info": {
+    "_postman_id": "54f196d3-40c6-4846-b859-f51c3c3e385e",
+    "name": "Koobing Kata",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "569864"
+  },
+  "item": [
+    {
+      "name": "Get available hostels",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/v1/search?z=49000&d=2024-01-01&d=2024-01-06",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "v1",
+            "search"
+          ],
+          "query": [
+            {
+              "key": "z",
+              "value": "49000"
+            },
+            {
+              "key": "d",
+              "value": "2024-01-01"
+            },
+            {
+              "key": "d",
+              "value": "2024-01-06"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Book a room",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"hotel_id\": 123,\n    \"room_id\": \"f2299f56-1017-4b57-b7fc-c006d4e97f6a\",\n    \"arrival\": \"2020-01-01\",\n    \"departure\": \"2020-01-02\",\n    \"email\": \"foo.bar@example.com\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/v1/bookings",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "v1",
+            "bookings"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Actuator Health",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/actuator/health",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "actuator",
+            "health"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Actuator App Info",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/actuator/info",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "actuator",
+            "info"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Actuator Loggers",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/actuator/loggers",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "actuator",
+            "loggers"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Actuator Loggers Koobing",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/actuator/loggers/com.koobing",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "actuator",
+            "loggers",
+            "com.koobing"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Actuator Loggers Koobing Update Level",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n   \"configuredLevel\": \"INFO\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/actuator/loggers/com.koobing",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "actuator",
+            "loggers",
+            "com.koobing"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
