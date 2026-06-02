@@ -5,14 +5,14 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.5.14</version>
+        <version>3.2.2</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.koobing</groupId>
-    <artifactId>koobing-us01</artifactId>
+    <artifactId>koobing</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>koobing-v2-us01</name>
-    <description>koobing-v2</description>
+    <name>100-search-hotel</name>
+    <description>100-search-hotel</description>
     <properties>
         <java.version>21</java.version>
     </properties>
