@@ -19,18 +19,18 @@
     </properties>
     
     <modules>
-        <module>us-01</module>
-        <module>us-02</module>
-        <module>us-03</module>
-        <module>us-04</module>
-        <module>us-05</module>
-        <module>us-06</module>
-        <module>us-07</module>
-        <module>us-08</module>
-        <module>us-09</module>
-        <module>us-10</module>
-        <module>us-11</module>
-        <module>us-12</module>
-        <module>sec-01</module>
+        <module>example/us-01</module>
+        <module>example/us-02</module>
+        <module>example/us-03</module>
+        <module>example/us-04</module>
+        <module>example/us-05</module>
+        <module>example/us-06</module>
+        <module>example/us-07</module>
+        <module>example/us-08</module>
+        <module>example/us-09</module>
+        <module>example/us-10</module>
+        <module>example/us-11</module>
+        <module>example/us-12</module>
+        <module>example/sec-01</module>
     </modules>
 </project>
