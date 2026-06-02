@@ -6,7 +6,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDate;
@@ -24,7 +24,7 @@ public class BookingTests {
     @Autowired
     private MockMvc mvc;
 
-    @MockBean
+    @MockitoBean
     private BookingService bookingService;
 
     @Test
@@ -41,13 +41,13 @@ public class BookingTests {
                     "departure": "2020-01-02",
                     "email" : "foo.bar@example.com"
                 }
-                """;
+""";
 
         var expectedJson = """
                 {
                     "booking_number": "A123"
                 }
-                """;
+""";
 
 
         mvc.perform(post("/api/v1/bookings")
@@ -61,15 +61,15 @@ public class BookingTests {
 
     @ParameterizedTest
     @ValueSource(strings = {
-            """
+        """
                     {
                         "hostel_id": 1,
                         "room_id": "46da9f48-ea47-4d9d-9f4b-52b5e56f4e2e",
                         "arrival": "2020-01-01",
                         "departure": "2020-01-02"
                     }
-                        """,
-            """
+        """,
+        """
                     {
                         "hostel_id": 1,
                         "room_id": "46da9f48-ea47-4d9d-9f4b-52b5e56f4e2e",
@@ -77,7 +77,7 @@ public class BookingTests {
                         "departure": "2020-01-02",
                         "email" : "foo.bar"
                     }
-                        """
+        """
     })
     @DisplayName("Try booking a room without email")
     void bookRoomWithoutEmail(String bookingJson) throws Exception {
@@ -85,7 +85,7 @@ public class BookingTests {
                 {
                     "message": "Invalid email provided."
                 }
-                """;
+""";
 
 
         mvc.perform(post("/api/v1/bookings")
@@ -111,14 +111,14 @@ public class BookingTests {
                     "departure": "2020-01-02",
                     "email" : "foo.bar@example.com"
                 }
-                """;
+""";
 
         var expectedJson = """
                 {
                     "message": "Room already booked.",
                     "error_code": "ALREADY_BOOKED"
                 }
-                """;
+""";
 
 
         mvc.perform(post("/api/v1/bookings")
