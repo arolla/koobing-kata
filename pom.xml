@@ -5,20 +5,49 @@
     <modelVersion>4.0.0</modelVersion>
     
     <groupId>com.koobing</groupId>
-    <artifactId>koobing-training</artifactId>
-    <version>1.0.0</version>
+    <artifactId>koobing-v2</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>Koobing Training - Parent</name>
-    <description>Parent POM for all training chapters</description>
+    <name>Koobing V2 - Parent</name>
+    <description>Parent POM for Koobing V2 application and training chapters</description>
     
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <junit.jupiter.version>5.10.0</junit.jupiter.version>
+        <spring-boot.version>3.5.14</spring-boot.version>
     </properties>
     
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-web</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-test</artifactId>
+                <version>${spring-boot.version}</version>
+                <scope>test</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>${spring-boot.version}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+    
     <modules>
+        <module>koobing-app</module>
         <module>example/us-01</module>
         <module>example/us-02</module>
         <module>example/us-03</module>
