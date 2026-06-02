@@ -41,7 +41,7 @@ public class SearchTests {
     }
   ]
 }
-                """;
+""";
 
         mvc.perform(get("/api/v1/search?z=75001&d=2024-01-01&d=2024-01-02"))
                 .andDo(print())
@@ -61,7 +61,7 @@ public class SearchTests {
                     "departure_date": "2024-01-02"
                   }
                 }
-                                """;
+                """;
 
         mvc.perform(get("/api/v1/search?z=75001&d=2024-01-01&d=2024-01-02"))
                 .andDo(print())

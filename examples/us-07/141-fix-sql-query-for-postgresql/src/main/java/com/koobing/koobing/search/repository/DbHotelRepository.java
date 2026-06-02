@@ -34,7 +34,7 @@ public class DbHotelRepository implements HotelRepository {
                 min_price as (select HOTEL_ID, min(price) as PRICE from available_rooms group by HOTEL_ID)
             select h.*, c.COUNT, p.PRICE
             from room_count c join min_price p on c.HOTEL_ID = p.HOTEL_ID join HOTELS h on h.HOTEL_ID = c.HOTEL_ID
-            """;
+        """;
 
     private final DataSource dataSource;
 

@@ -27,13 +27,13 @@ public class BookingTests {
                     "departure": "2020-01-02",
                     "email" : "foo.bar@example.com"
                 }
-                """;
+""";
 
         var expectedJson = """
                 {
                     "booking_number": "A123"
                 }
-                """;
+""";
 
 
         mvc.perform(post("/api/v1/bookings")
