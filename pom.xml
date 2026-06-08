@@ -85,6 +85,7 @@
         <module>examples/us-05/180-no-night-is-booked-test</module>
         <module>examples/us-05/190-no-night-is-booked-test-ok</module>
         <module>examples/us-05/191-no-night-is-booked-test-ok-refactoring</module>
+        <module>examples/us-05/192-no-night-is-booked-test-ok-no-either</module>
         <module>examples/us-05/200-no-night-is-booked-controller-test</module>
         <module>examples/us-05/210-no-night-is-booked-controller-test-ok</module>
         <module>examples/us-05/211-no-night-is-booked-controller-test-ok-refactoring</module>
